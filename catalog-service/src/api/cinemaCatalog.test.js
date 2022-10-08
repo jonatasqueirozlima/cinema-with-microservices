@@ -1,6 +1,6 @@
 require('dotenv-safe').config();
 const supertest = require('supertest');
-const movies = require('./catalog');
+const movies = require('./cinemaCatalog');
 const server = require("../server/server");
 const repository = require("../repository/repository");
 
