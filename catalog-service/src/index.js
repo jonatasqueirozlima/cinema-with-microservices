@@ -1,7 +1,7 @@
 
 (async () => {
 	require("dotenv-safe").config();
-	const cinemaCatalog = require('./api/catalog');
+	const cinemaCatalog = require('./api/cinemaCatalog');
 	const server = require("./server/server");
 	const repository = require("./repository/repository");
 
