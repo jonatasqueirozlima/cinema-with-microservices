@@ -1,21 +1,19 @@
+require("dotenv-safe").config();
 const httpProxy = require('express-http-proxy');
 const express = require('express');
 const app = express();
 const logger = require('morgan');
 
-app.use(logger('dev'));
+const selectProxyHost = require('./config/proxyHost');
 
-function selectProxyHost(req) {
-	if (req.path.startsWith('/movies'))
-		return 'http://localhost:3010/';
-	else if (req.path.startsWith('/cinemas'))
-		return 'http://localhost:3011/';
-}
+const PORT = process.env.API_GATEWAY_PORT || 5000;
+
+app.use(logger('dev'));
 
 app.use((req, res, next) => {
 	httpProxy(selectProxyHost(req))(req, res, next);
 });
 
-app.listen(4000, () => {
-	console.log('API Gateway running!');
+app.listen(PORT, () => {
+	console.log(`API Gateway is up and running at ${PORT}`);
 });
