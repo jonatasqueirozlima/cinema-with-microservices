@@ -10,7 +10,7 @@ afterAll(async () => {
 	await server.stop();
 })
 
-test('Returns the URI microservice correctly', async () => {
+test('Redirect to microservice based on endpoint using API Gateway', async () => {
 	const response = await supertest(app)
 		.get('/cities');
 
