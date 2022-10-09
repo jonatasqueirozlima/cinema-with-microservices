@@ -1,3 +1,5 @@
+const httpProxy = require('express-http-proxy');
+
 const microservicesPath = [
 	{
 		name: 'catalog',
@@ -11,9 +13,11 @@ const microservicesPath = [
 	}
 ]
 
-const selectProxyHost = (req) => {
-	const { uri } = microservicesPath.find(({ entry }) => entry.includes(req.path));
+const selectProxyHost = (path) => {
+	const { uri } = microservicesPath.find(({ entry }) => entry.includes(path));
 	return uri;
 };
 
-module.exports = selectProxyHost;
+module.exports = (req, res, next) => {
+	httpProxy(selectProxyHost(req.path))(req, res, next);
+};
